@@ -1,0 +1,10 @@
+.pane{
+    -fx-background-color: #FFFFFF;
+}
+
+.jfx-button {
+    jfx-button-type: RAISED;
+    -fx-background-color: #2D3B55;
+    -fx-text-fill: white;
+    -fx-border-radius: 6px;
+}

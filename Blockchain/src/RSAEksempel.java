@@ -1,3 +1,6 @@
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -7,6 +10,10 @@ import javax.crypto.Cipher;
 
 public class RSAEksempel {
     public static void main(String [] args) throws Exception {
+        JSONObject obj =  new JSONObject();
+        obj.put("Hello", "World");
+        obj.put("Lets", "Dance");
+
         // Get an instance of the RSA key generator
         KeyPairGenerator kpg = KeyPairGenerator.getInstance("RSA");
 
@@ -14,26 +21,29 @@ public class RSAEksempel {
         KeyPair myPair = kpg.generateKeyPair();
 
         // Get an instance of the Cipher for RSA encryption/decryption
-        Cipher desCipher = Cipher.getInstance("RSA/ECB/OAEPWithSHA-256AndMGF1Padding");
+        Cipher cipher = Cipher.getInstance("RSA/ECB/OAEPWithSHA-256AndMGF1Padding");
 
         // Initiate the Cipher, telling it that it is going to Encrypt, giving it the public key
-        desCipher.init(Cipher.ENCRYPT_MODE, myPair.getPublic());
+        cipher.init(Cipher.ENCRYPT_MODE, myPair.getPublic());
         // Create a secret message
-        byte[] text = "No body can see me.".getBytes("UTF8");
+        byte[] text = obj.toString().getBytes("UTF8");
         // Cipher it
-        byte[] textEncrypted = desCipher.doFinal(text);
+        byte[] textEncrypted = cipher.doFinal(text);
         // Write the message to an data file
         Path filePath = Paths.get("C:\\Journal\\RSAEncrypted.dat");
         Files.write(filePath, textEncrypted);
 
         // Reads the data file and saves it in fileContent.
-        byte[] fileContents =  Files.readAllBytes(filePath);
+        byte[] fileContent =  Files.readAllBytes(filePath);
         // Initiate the decipher
-        desCipher.init(desCipher.DECRYPT_MODE, myPair.getPrivate());
+        cipher.init(cipher.DECRYPT_MODE, myPair.getPrivate());
         // Decipher the message
-        byte[] textDecrypted = desCipher.doFinal(fileContents);
-        // Converts the bytes to a String and prints it
-        String aString = new String(textDecrypted);
-        System.out.println(aString);
+        byte[] textDecrypted = cipher.doFinal(fileContent);
+        // Converts the bytes to a JSON objects
+        JSONParser parser = new JSONParser();
+        JSONObject returnedJsonObj = (JSONObject) parser.parse(new String(textDecrypted));
+
+        // Prints the JSON Object
+        System.out.println(returnedJsonObj);
     }
 }

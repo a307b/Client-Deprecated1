@@ -10,9 +10,9 @@ public class PrivateKeys {
     // For now this only has the private key
 
     // Overvej at lave private keys til en map
-    KeyPair keypair1;
-    PrivateKey privateKey1;
-    PublicKey publicKey1;
+    static KeyPair keypair1;
+    static PrivateKey privateKey1;
+    static PublicKey publicKey1;
 
     KeyPair keypair2;
     PrivateKey privateKey2;

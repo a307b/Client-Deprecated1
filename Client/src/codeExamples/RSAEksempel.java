@@ -21,6 +21,8 @@ public class RSAEksempel {
 
         // Generate the keys
         KeyPair myPair = kpg.generateKeyPair();
+        System.out.println(myPair.getPrivate());
+        System.out.println(myPair.getPublic());
 
         // Get an instance of the Cipher for RSA encryption/decryption
         Cipher cipher = Cipher.getInstance("RSA/ECB/OAEPWithSHA-256AndMGF1Padding");

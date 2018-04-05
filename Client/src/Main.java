@@ -19,9 +19,12 @@ public class Main extends Application {
 
     public static void main(String[] args) throws Exception{
         // Connects to the server where files are and should be stored
+        PrivateKeys privatekeys = new PrivateKeys();
+        System.out.println(privatekeys.publicKey1);
+        System.out.println(privatekeys.privateKey1);
         Client client = new Client(
                 InetAddress.getByName("192.168.1.15"),
-                Integer.parseInt("60615"));
+                Integer.parseInt("61651"), privatekeys);
 
         System.out.println("\r\nConnected to Server: " + client.getSocket().getInetAddress());
         client.writeToServer();

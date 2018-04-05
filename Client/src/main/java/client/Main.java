@@ -10,9 +10,9 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("UserSearch.fxml"));
+        Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("JournalMaker.fxml"));
         primaryStage.setTitle("UserSearch");
-        primaryStage.setScene(new Scene(root, 300, 120));
+        primaryStage.setScene(new Scene(root, 840, 580));
         primaryStage.show();
     }
 

@@ -7,7 +7,7 @@
 
 <AnchorPane prefHeight="120.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.controller.UserSearchController">
    <stylesheets>
-      <URL value="@JournalMaker.css" />
+      <URL value="@UserSearch.css" />
    </stylesheets>
    <children>
       <JFXTextField fx:id="usernameField" focusColor="#2c3e50" labelFloat="true" layoutX="10.0" layoutY="33.0" prefHeight="25.0" prefWidth="280.0" promptText="Enter CPR" />

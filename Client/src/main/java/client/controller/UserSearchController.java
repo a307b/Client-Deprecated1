@@ -23,10 +23,10 @@ public class UserSearchController implements Initializable {
 
     @FXML
     private JFXTextField usernameField;
-    
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-
+        //initialize
     }
 
     public void CPRButtonAction(ActionEvent event) {

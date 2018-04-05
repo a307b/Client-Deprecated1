@@ -1,4 +1,4 @@
-package client.application;
+package codeExamples;
 
 import java.security.AlgorithmParameters;
 import java.security.SecureRandom;

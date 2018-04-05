@@ -1,5 +1,3 @@
-package client.application;
-
 public class OSCheck {
 
     private static String OS = null;

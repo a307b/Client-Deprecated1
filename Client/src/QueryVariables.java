@@ -1,5 +1,3 @@
-package client.application;
-
 // Contains input received from the queury
 public class QueryVariables {
     private String patientName = "Bob";

@@ -1,5 +1,3 @@
-package client.application;
-
 import com.itextpdf.layout.element.Paragraph;
 
 // Text objects are put together to make Paragraph objects

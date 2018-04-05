@@ -18,17 +18,21 @@ public class Main extends Application {
 
 
     public static void main(String[] args) throws Exception{
+        runClient();
+        launch(args);
+    }
+
+    public static void runClient() throws Exception {
         // Connects to the server where files are and should be stored
         PrivateKeys privatekeys = new PrivateKeys();
         System.out.println(privatekeys.publicKey1);
         System.out.println(privatekeys.privateKey1);
         Client client = new Client(
-                InetAddress.getByName("192.168.1.15"),
-                Integer.parseInt("61651"), privatekeys);
+                InetAddress.getByName("192.168.56.1"),
+                Integer.parseInt("54034"), privatekeys);
 
         System.out.println("\r\nConnected to Server: " + client.getSocket().getInetAddress());
         client.writeToServer();
-        launch(args);
     }
 
 }

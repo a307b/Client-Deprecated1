@@ -5,6 +5,14 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.net.InetAddress;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.security.KeyFactory;
+import java.security.PrivateKey;
+import java.security.PublicKey;
+import java.security.spec.PKCS8EncodedKeySpec;
+import java.security.spec.X509EncodedKeySpec;
 
 public class Main extends Application {
 
@@ -18,18 +26,21 @@ public class Main extends Application {
 
 
     public static void main(String[] args) throws Exception{
-        runClient();
+        Path storedPublicKeyDES = Paths.get("C:\\Client\\Client\\privateKeys\\pu01.dat");
+        byte[] publicKeyBytes =  Files.readAllBytes(storedPublicKeyDES);
+        PublicKey publicKey = KeyFactory.getInstance("RSA").generatePublic(new X509EncodedKeySpec(publicKeyBytes));
+
+        //KeyGenerator keys = new KeyGenerator();
+        //keys.savePrivateKey("pr01");
+        runClient(publicKey);
         launch(args);
     }
 
-    public static void runClient() throws Exception {
+    public static void runClient(PublicKey publicKey) throws Exception {
         // Connects to the server where files are and should be stored
-        PrivateKeys privatekeys = new PrivateKeys();
-        System.out.println(privatekeys.publicKey1);
-        System.out.println(privatekeys.privateKey1);
         Client client = new Client(
-                InetAddress.getByName("192.168.56.1"),
-                Integer.parseInt("54034"), privatekeys);
+                InetAddress.getByName("192.168.1.15"),
+                Integer.parseInt("62757"), publicKey);
 
         System.out.println("\r\nConnected to Server: " + client.getSocket().getInetAddress());
         client.writeToServer();

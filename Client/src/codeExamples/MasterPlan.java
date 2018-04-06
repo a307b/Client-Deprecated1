@@ -12,7 +12,7 @@ I første omgang gør det samme med public keys, men public keys´ene vil ellers
 over hvert program ligesom public keys´ene ved at være gemt i en database.
 
 I morgen fortsætter jeg det her.
-En anden kan se på hvordan man laver en query over vores database 
+En anden kan se på hvordan man laver en query over vores database
 
 
 JournalMakerController skal have alle textfieldsene/variablerne som lægen skal indtaste

@@ -12,16 +12,16 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.security.KeyFactory;
 import java.security.PrivateKey;
-import java.security.PublicKey;
 import java.security.spec.PKCS8EncodedKeySpec;
-import java.security.spec.X509EncodedKeySpec;
+
 
 public class Server {
     public static void main(String[] args) throws Exception {
+        // Reads private key from .dat file
         Path storedPrivateKeyDES = Paths.get("C:\\Client\\Client\\privateKeys\\pr01.dat");
         byte[] privateKeyBytes =  Files.readAllBytes(storedPrivateKeyDES);
         PrivateKey privateKey = KeyFactory.getInstance("RSA").generatePrivate(new PKCS8EncodedKeySpec(privateKeyBytes));
-        // Backend Stuff
+
 
         try {
             ServerSocket serverSocket = new ServerSocket(8000);
@@ -40,17 +40,19 @@ public class Server {
             String clientAddress = socket.getInetAddress().getHostAddress();
             System.out.println("\r\nNew connection from " + clientAddress);
 
-
+            // Creates RSA cipher and activates Decrypt mode with the private key
             Cipher cipher = Cipher.getInstance("RSA/ECB/OAEPWithSHA-256AndMGF1Padding");
             cipher.init(Cipher.DECRYPT_MODE, privateKey);
 
-            int length = dIn.readInt();                    // read length of incoming message
+            // read length of and the incoming message
+            int length = dIn.readInt();
             if (length > 0) {
                 byte[] data = new byte[length];
                 dIn.readFully(data, 0, data.length);   // reads the data
-                // Decrypts the bytes
+                // Decrypts the bytes and parses the bytes to an JSON object
                 System.out.println("Client connected, decrypts message.");
                 byte[] decryptedData = cipher.doFinal(data);
+
                 JSONParser parser = new JSONParser();
                 JSONObject returnedJsonObj = (JSONObject) parser.parse(new String(decryptedData));
                 System.out.println("Decrypted message :" + returnedJsonObj);

@@ -42,11 +42,15 @@ public class Client extends Application {
 
     public void sendCryptedMessage(PublicKey publicKey) throws Exception, IOException
     {
+        // Creates cipher object and initializes cipher to encrypt
         Cipher cipher = Cipher.getInstance("RSA/ECB/OAEPWithSHA-256AndMGF1Padding");
         cipher.init(Cipher.ENCRYPT_MODE, publicKey);
+
+        // Creates JSON object to test
         JSONObject patientData = new JSONObject();
         patientData.put("hospitalname", "Randers Sygehus");
 
+        // Gets bytes of JSON object and encrypts it with the cipher
         byte[] patientDataBytes = patientData.toString().getBytes("UTF8");
         byte[] dataEncrypted = cipher.doFinal(patientDataBytes);
 
@@ -54,7 +58,6 @@ public class Client extends Application {
         DataOutputStream dOut = new DataOutputStream(os);
         dOut.writeInt(dataEncrypted.length);
         dOut.write(dataEncrypted);
-        System.out.println("It activates");
     }
 
     public static void main(String[] args){
@@ -68,13 +71,12 @@ public class Client extends Application {
         byte[] publicKeyBytes =  Files.readAllBytes(storedPublicKeyDES);
         PublicKey publicKey = KeyFactory.getInstance("RSA").generatePublic(new X509EncodedKeySpec(publicKeyBytes));
 
+        // Activate this code if you want to create and save new private key
         //KeyGenerator keys = new KeyGenerator();
         //keys.savePrivateKey("pr01");
 
         VBox vbox = new VBox();
         Scene scene = new Scene(vbox);
-
-        //TextField messageField = new TextField();
 
         Button connectButton = new Button("Connect");
         connectButton.setOnMouseClicked(e -> connect());
@@ -92,7 +94,7 @@ public class Client extends Application {
         vbox.getChildren().add(sendButton);
 
 
-        primaryStage.setTitle("Aweseome Client");
+        primaryStage.setTitle("Client");
 
         primaryStage.setScene(scene);
         primaryStage.show();
